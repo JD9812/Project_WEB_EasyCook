@@ -1,0 +1,43 @@
+<div class="flex justify-center">
+
+    <form method="post" action="/sign-up" novalidate class="fieldset bg-base-200 border-base-300 rounded-box border p-4 w-full max-w-xs md:max-w-md xl:max-w-xl">
+
+        <legend class="fieldset-legend">Sign Up</legend>
+
+        <label for="firstName" class="label">First Name*</label>
+        <% if (validationMessages.firstName) { %>
+            <span class="text-error" style="color: red;">
+                <%= validationMessages.firstName %>
+            </span>
+            <% } %>
+        <input type="text" id="firstName" name="firstName" value="<%= values.firstName %>" class="input validator w-full max-w-xs md:max-w-md xl:max-w-xl" placeholder="First Name"/>
+
+        <label for="lastName" class="label">Last Name*</label>
+        <% if (validationMessages.lastName) { %>
+            <span class="text-error" style="color: red;">
+                <%= validationMessages.lastName %>
+            </span>
+            <% } %>
+        <input type="text" id="lastName" name="lastName" value="<%= values.lastName %>" class="input validator w-full max-w-xs md:max-w-md xl:max-w-xl" placeholder="Last Name" />
+
+        <label for="email" class="label">Email*</label>
+        <% if (validationMessages.email) { %>
+            <span class="text-error" style="color: red;">
+                <%= validationMessages.email %>
+            </span>
+            <% } %>
+        <input type="text" id="email" name="email" value="<%= values.email %>" class="input validator w-full max-w-xs md:max-w-md xl:max-w-xl" placeholder="mail@site.com" />
+
+        <label for="password" class="label">Password*</label>
+        <% if (validationMessages.password) { %>
+            <span class="text-error" style="color: red;">
+                <%= validationMessages.password %>
+            </span>
+            <% } %>
+        <input type="password" id="password" name="password" value="<%= values.password %>" class="input validator w-full max-w-xs md:max-w-md xl:max-w-xl" placeholder="Password" />
+
+
+        <button class="btn btn-neutral mt-4">Sign Up</button>
+    </form>
+
+</div>

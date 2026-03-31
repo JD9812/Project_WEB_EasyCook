@@ -1,0 +1,62 @@
+
+<footer class="footer footer-horizontal footer-center bg-base-200 text-base-content rounded p-10">
+    <nav class="grid grid-flow-col gap-4">
+        <a href="/">Home</a>
+        <a href="/mealkits">Menu</a>
+
+        <% if(!user) { %>
+            <a href="/log-in">Log In</a>
+            <a href="/sign-up">Sign Up</a>
+
+        <% }else if(role === "dataClerk") { %>
+            <a href="/mealkits/list"><%= user.firstName %></a>
+            <a href="/log-out">Log Out</a>
+        <% } else if(role === "customer") { %>
+            <a href="/cart"><%= user.firstName %></a>
+            <a href="/log-out">Log Out</a>
+        <% }else { %>
+                <a href="/"><%= user.firstName %></a>
+                <a href="/log-out">Log Out</a>
+        <% } %>
+    </nav>
+    <nav>
+        <div class="grid grid-flow-col gap-4">
+            <a href="https://twitter.com/"    target="_blank"
+            rel="noopener"
+            aria-label="Follow us on Twitter">
+
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="fill-current">
+                    <path
+                    d="M18.244 2H21.5l-7.25 8.287L22.75 22h-6.29l-4.927-6.467L5.8 22H2.5l7.768-8.884L1.5 2h6.45l4.462 5.868L18.244 2zm-1.1 18h1.803L7.95 4H6.05l11.094 16z">
+                    </path>
+                </svg>
+            </a>
+            <a href="https://instagram.com/"   target="_blank" 
+            rel="noopener" 
+            aria-label="Follow us on Instagram">
+
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="w-6 h-6 fill-current">
+                    <path
+                    d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7zm10 2c1.654 0 3 1.346 3 3v10c0 1.654-1.346 3-3 3H7c-1.654 0-3-1.346-3-3V7c0-1.654 1.346-3 3-3h10zm-5 3.5A4.5 4.5 0 1 0 16.5 12 4.505 4.505 0 0 0 12 7.5zm0 7.5A3 3 0 1 1 15 12a3.003 3.003 0 0 1-3 3zm4.75-7.75a1.25 1.25 0 1 1-1.25-1.25 1.25 1.25 0 0 1 1.25 1.25z">
+                    </path>
+                </svg>
+            </a>
+            <a href="https://facebook.com/"   target="_blank"
+            rel="noopener"
+            aria-label="Follow us on Facebook">
+            
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="fill-current">
+                    <path
+                        d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z">
+                    </path>
+                </svg>
+            </a>
+        </div>
+    </nav>
+    <aside>
+        <p>By submitting this assignment I declare that this assignment is my own work in accordance with the Seneca Academic
+            Policy. No part of this assignment has been copied manually or electronically from any other source (including web
+            sites) or distributed to other students.</p>
+            <p>&copy; Juan Diego Correa Noy, jdcorrea-noy@myseneca.ca, WEB322 winter 2026</p>
+    </aside>
+    </footer>

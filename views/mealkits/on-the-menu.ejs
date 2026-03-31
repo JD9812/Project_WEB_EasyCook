@@ -1,0 +1,15 @@
+
+<% categoryMeals.forEach(category=> { %>
+    <section class="col-span-full">
+
+        <h2 class="text-2xl font-bold mb-4 text-center">
+            <%= category.category %>
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            <% category.meals.forEach(meal=> { %>
+                <%- include("../partials/mealkit", { meal: meal }) %>
+                    <% }) %>
+        </div>
+    </section>
+<% }) %>

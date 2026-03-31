@@ -1,0 +1,50 @@
+
+<div class="flex justify-center mb-20">
+
+    <form method="post" action="/log-in" novalidate class="fieldset bg-base-200 border-base-300 rounded-box border p-4 w-full max-w-xs md:max-w-md xl:max-w-xl">
+
+        <% if (validationMessages.authentication) { %>
+            <span class="text-error" style="color: red;">
+                <%= validationMessages.authentication %>
+            </span>
+            <% } %>
+
+        <legend class="fieldset-legend">Login</legend>
+    
+        <label for="email" class="label">Email*</label>
+        <% if (validationMessages.email) { %>
+            <span class="text-error" style="color: red;">
+                <%= validationMessages.email %>
+            </span>
+            <% } %>
+        <input type="text" id="email" name="email" value="<%= values.email %>" class="input validator w-full max-w-xs md:max-w-md xl:max-w-xl" placeholder="mail@site.com" />
+    
+        <label for="password" class="label">Password*</label>
+        <% if (validationMessages.password) { %>
+            <span class="text-error" style="color: red;">
+                <%= validationMessages.password %>
+            </span>
+            <% } %>
+                <input type="password" id="password" name="password" value="<%= values.password %>"
+                    class="input validator w-full max-w-xs md:max-w-md xl:max-w-xl" placeholder="Password" />
+        
+        <div class="flex gap-2">
+
+            <label class="label cursor-pointer">
+            <span class="label-text text-m">Customer</span>
+            <input type="radio" name="role" class="radio" value="customer" checked="checked" />
+            </label>
+
+            <br/>
+
+            <label class="label cursor-pointer">
+            <span class="label-text text-m">Data Clerk</span>
+            <input type="radio" name="role" value="dataClerk" class="radio" />
+            </label>
+
+        </div>
+
+        <button class="btn btn-neutral mt-4">Login</button>
+    </form>
+    
+</div>

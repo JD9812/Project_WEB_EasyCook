@@ -1,0 +1,46 @@
+{
+  "name": "foodwebpage",
+  "version": "1.0.0",
+  "description": "Web page for food delivery system",
+  "keywords": [
+    "web",
+    "food",
+    "delivery",
+    "node",
+    "express",
+    "meal-kit"
+  ],
+  "homepage": "https://github.com/JD9812/WEB-322-Project#readme",
+  "bugs": {
+    "url": "https://github.com/JD9812/WEB-322-Project/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JD9812/WEB-322-Project.git"
+  },
+  "license": "ISC",
+  "author": "Juan Diego Correa Noy",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js npx @tailwindcss/cli -i ./public/css/tailwind.css -o ./public/css/main.css --watch",
+    "build:css": "npx @tailwindcss/cli -i ./public/css/tailwind.css -o ./public/css/main.css --watch"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "dotenv": "^17.3.1",
+    "ejs": "^4.0.1",
+    "express": "^5.2.1",
+    "express-ejs-layouts": "^2.5.1",
+    "express-session": "^1.19.0",
+    "mailgun.js": "^12.7.1",
+    "mongoose": "^9.3.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.18",
+    "@tailwindcss/typography": "^0.5.19",
+    "daisyui": "^5.5.18",
+    "tailwindcss": "^4.1.18"
+  }
+}

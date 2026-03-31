@@ -1,0 +1,92 @@
+
+<div class="hero relative min-h-[30vh] md:min-h-[40vh] lg:min-h-[50vh] bg-cover bg-center"
+style="background-image: url(/images/Hero_image.png);">
+
+<div class="absolute inset-0 bg-black/45"></div>
+
+    <div class="hero-content text-center text-primary-content">
+        <div class="max-w-md lg:text-xl xl:text-2xl">
+            <h1 class="text-5xl font-bold ">Real food, made simple.</h1>
+            <p class="py-6">
+                Nutritious meals crafted to taste good and make you feel even better.
+            </p>
+            <a href="/sign-up" class="btn btn-primary">Get Started</a>
+        </div>
+    </div>
+</div>
+
+<br/>
+
+<div class="bg-base-100 p-6">
+
+    <div class="mx-auto max-w-8xl bg-secondary-100">
+
+        <h1 class="text-3xl font-bold mb-6 text-center">How we work</h1>
+
+        <div class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-4">
+    
+            <div class="card bg-base-200 shadow-xl">
+
+                <figure class="px-4 pt-4">
+                    <img src="/images/browsingMenu.png" alt="Menu browsing imgage"
+                            class="rounded-xl object-cover h-40 w-full" />
+                </figure>
+                <div class="card-body">
+                    <h2 class="card-title text-xl">Select your weekly meals</h2>
+                    <p class="text-base-content/80">
+                        Slect your meals from our weekly menu, which features a variety of delicious and nutritious options to suit every taste and dietary preference.
+                    </p>
+                </div>
+            </div>
+
+            <div class="card bg-base-200 shadow-xl">
+                <figure class="px-4 pt-4">
+                    <img src="/images/customizeMeals.png" alt="Meal customization image"
+                        class="rounded-xl object-cover h-40 w-full" />
+                </figure>
+                <div class="card-body">
+                    <h2 class="card-title text-xl">Customize your meals</h2>
+                    <p class="text-base-content/80">
+                        Modify your meals to fit your dietary needs and preferences. Our flexible options allow you to swap ingredients, adjust portion sizes, and cater to specific dietary requirements, ensuring that your meals are tailored to your unique tastes and nutritional goals.
+                    </p>
+                </div>
+            </div>
+
+            <div class="card bg-base-200 shadow-xl">
+                <figure class="px-4 pt-4">
+                    <img src="/images/cookMeals.png" alt="Cooking meals image"
+                        class="rounded-xl object-cover h-40 w-full" />
+                </figure>
+                <div class="card-body">
+                    <h2 class="card-title text-xl">Cook your meals</h2>
+                    <p class="text-base-content/80">
+                        cook your meals with our easy-to-follow recipes and pre-portioned ingredients. Each meal kit comes with step-by-step instructions and all the necessary ingredients, making it simple and convenient for you to prepare delicious and healthy meals in the comfort of your own kitchen.
+                    </p>
+                </div>
+            </div>
+    
+            <div class="card bg-base-200 shadow-xl">
+                <figure class="px-4 pt-4">
+                    <img src="/images/enjoy.png" alt="Person enjoying a meal"
+                        class="rounded-xl object-cover h-40 w-full" />
+                </figure>
+                <div class="card-body">
+                    <h2 class="card-title text-xl">Enjoy!!</h2>
+                    <p class="text-base-content/80">
+                        Once you've prepared your meals, sit back and enjoy the satisfaction of eating healthy, delicious food that's been tailored to your preferences and needs.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<br/>
+
+<h1 class="text-3xl font-bold mb-6 text-center">Featured Meals</h1>
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+    <% featuredMeals.forEach(meal=> { %>
+        <%- include("../partials/mealkit", { meal: meal }) %>
+        <% }) %>
+</div>
