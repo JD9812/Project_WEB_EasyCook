@@ -1,15 +1,3 @@
-/*************************************************************************************
-* WEB322 - 2261 Project
-* I declare that this assignment is my own work in accordance with the Seneca Academic
-* Policy. No part of this assignment has been copied manually or electronically from
-* any other source (including web sites) or distributed to other students.
-*
-* Student Name  : Juan Diego Correa Noy
-* Student ID    : 115889248
-* Student Email : jdcorrea-noy@myseneca.ca
-* Course/Section: WEB322/NCC
-*
-**************************************************************************************/
 
 const path = require("path");
 const express = require("express");
@@ -36,7 +24,7 @@ app.set("view engine", "ejs");
 app.set("layout", "layouts/main");
 app.use(expressLayouts);
 
-//expression-session
+//express-session
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
@@ -53,9 +41,11 @@ app.use((req, res, next) => {
 // Controllers
 const generalController = require("./controllers/generalController");
 const mealkitController = require("./controllers/mealkitsController");
+const loadDataController = require("./controllers/load-dataController");
 
 app.use("/", generalController);
 app.use("/mealkits", mealkitController);
+app.use("/load-data", loadDataController);
 
 
 // This use() will not allow requests to go beyond it

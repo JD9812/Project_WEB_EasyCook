@@ -267,6 +267,7 @@ router.post('/sign-up', async (req, res) => {
 
                 console.error(err.stack);
                 console.log("Not added");
+                err.message = "Unable to save user to database.";
                 res.status(err.status || 500).render("error", {
                     title: "Error",
                     status: err.status || 500,
