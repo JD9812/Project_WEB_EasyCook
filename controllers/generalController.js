@@ -313,6 +313,44 @@ router.get('/log-out', (req, res) => {
     res.redirect('/log-in');
 });
 
+const cartView = function (req, res, message) {
+  let viewModel = {
+    title: "Shopping Cart",
+    message,
+    hasMealKits: false,
+    subtotal: 0,
+    cartTotal: 0,
+    tax: 0,
+    mealKits: [],
+  };
+
+  if (req.session && req.session.user) {
+    const cart = req.session.cart || [];
+
+    viewModel.hasMealKits = cart.length > 0;
+
+    let subTotal = 0;
+
+    cart.forEach((kit) => {
+      subTotal += kit.mealKit.price * kit.qty;
+    });
+
+    viewModel.subtotal = subTotal;
+    viewModel.tax = subTotal * 0.1;
+    viewModel.cartTotal = subTotal + viewModel.tax;
+    viewModel.mealKits = cart;
+
+    res.render("general/cart", viewModel);
+  } else {
+    return res.status(401).render("error", {
+      title: "Error",
+      status: 401,
+      message: "You are not authorized to view this page",
+      error: {},
+    });
+  }
+};
+
 router.get('/cart', (req, res) => {
 
     if (req.session.role !== "customer" || !req.session.user) {
@@ -323,10 +361,220 @@ router.get('/cart', (req, res) => {
             error: {}
         });
     }else {
-        res.render("general/cart", {
-            title: "Cart"
-        });
+        cartView(req, res, "");
     }
+});
+
+router.get("/cart/:id", async (req, res) => {
+  let message;
+  const mealId = req.params.id;
+
+  if (req.session.user) {
+    try {
+      const cart = (req.session.cart = req.session.cart || []);
+
+      const mealKit = await mealKitModel.findById(mealId);
+
+      if (!mealKit) {
+        message = `Meal kit ${mealId} not found.`;
+        return cartView(req, res, message);
+      } else {
+        let found = false;
+        cart.forEach((meal) => {
+          if (meal._id == mealId) {
+            found = true;
+            meal.qty++;
+          }
+        });
+        if (found) {
+          message = `${mealKit.title} Already in cart.`;
+        } else {
+          cart.push({
+            _id: mealId,
+            qty: 1,
+            mealKit,
+          });
+
+          message = `${mealKit.title} added to cart.`;
+        }
+
+        return cartView(req, res, message);
+      }
+    } catch (err) {
+      console.error(err.stack);
+      return res.status(err.status || 500).render("error", {
+        title: "Error",
+        status: err.status || 500,
+        message: err.message || "Unable to query DB.",
+        error: err,
+      });
+    }
+  } else {
+    return res.status(401).render("error", {
+      title: "Error",
+      status: 401,
+      message: "You must be logged in.",
+      error: {},
+    });
+  }
+});
+
+router.get("/cart/remove/:id", async (req, res) => {
+  let message;
+  const mealId = req.params.id;
+
+  if (req.session.user) {
+    const cart = req.session.cart || [];
+
+    const mealIndex = cart.findIndex((meal) => meal._id == mealId);
+
+    if (mealIndex >= 0) {
+      message = `${cart[mealIndex].mealKit.title} removed from cart.`;
+      cart.splice(mealIndex, 1);
+    } else {
+      message = `Meal kit ${mealId} not found in cart.`;
+    }
+  } else {
+    return res.status(401).render("error", {
+      title: "Error",
+      status: 401,
+      message: "You must be logged in.",
+      error: {},
+    });
+  }
+
+  cartView(req, res, message);
+});
+
+router.post("/cart/update/:id", (req, res) => {
+  let message;
+  const mealId = req.params.id;
+  const qty = req.body.qty;
+
+  if (req.session.user) {
+    const cart = req.session.cart || [];
+    const meal = cart.find((meal) => meal._id === mealId);
+
+    if (meal) {
+      meal.qty = qty;
+
+      message = `${meal.mealKit.title} quantity updated.`;
+      return cartView(req, res, message);
+    } else {
+      message = `Meal kit ${mealId} not found in cart.`;
+      return cartView(req, res, message);
+    }
+  } else {
+    return res.status(401).render("error", {
+      title: "Error",
+      status: 401,
+      message: "You must be logged in.",
+      error: {},
+    });
+  }
+});
+
+router.post("/cart/place-order", async (req, res) => {
+  if (req.session.user) {
+    try {
+      const cart = req.session.cart || [];
+
+      if (cart.length > 0) {
+        let subtotal = 0;
+        let orders = "";
+
+        cart.forEach((item) => {
+          const orderTotal = Number(item.mealKit.price) * Number(item.qty);
+          subtotal += orderTotal;
+
+          orders += `
+              <tr>
+                <td style="padding:8px; border:1px solid #ccc;">${item.mealKit.title}</td>
+                <td style="padding:8px; border:1px solid #ccc;">${item.mealKit.includes}</td>
+                <td style="padding:8px; border:1px solid #ccc;">$${Number(item.mealKit.price).toFixed(2)}</td>
+                <td style="padding:8px; border:1px solid #ccc;">${item.qty}</td>
+                <td style="padding:8px; border:1px solid #ccc;">$${orderTotal.toFixed(2)}</td>
+              </tr>
+            `;
+        });
+
+        const tax = subtotal * 0.1;
+        const cartTotal = subtotal + tax;
+
+        const emailHtml = `
+        <h1>Order Confirmation</h1>
+        <p>Hello ${req.session.user.firstName},</p>
+        <p>Thank you for your order. Here is your shopping cart summary:</p>
+  
+        <table style="border-collapse: collapse; width: 100%;">
+          <thead>
+            <tr>
+              <th style="padding:8px; border:1px solid #ccc;">Meal Kit</th>
+              <th style="padding:8px; border:1px solid #ccc;">Includes</th>
+              <th style="padding:8px; border:1px solid #ccc;">Price</th>
+              <th style="padding:8px; border:1px solid #ccc;">Quantity</th>
+              <th style="padding:8px; border:1px solid #ccc;">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${orders}
+          </tbody>
+        </table>
+  
+        <p><strong>Subtotal:</strong> $${subtotal.toFixed(2)}</p>
+        <p><strong>Tax (10%):</strong> $${tax.toFixed(2)}</p>
+        <p><strong>Grand Total:</strong> $${cartTotal.toFixed(2)}</p>
+  
+        <p>We appreciate your order.</p>
+      `;
+
+        const FormData = require("form-data");
+        const Mailgun = require("mailgun.js");
+
+        const mailgun = new Mailgun(FormData);
+
+        const mg = mailgun.client({
+          username: "api",
+          key: process.env.MAILGUN_API_KEY,
+        });
+
+        await mg.messages.create(
+          "sandboxc538a47bb4c14e3c86e9d2305df5bcdf.mailgun.org",
+          {
+            from: "Mailgun Sandbox <postmaster@sandboxc538a47bb4c14e3c86e9d2305df5bcdf.mailgun.org>",
+            to: [
+              `${req.session.user.firstName} ${req.session.user.lastName} <${req.session.user.email}>`,
+            ],
+            subject: "Order Confirmation",
+            html: emailHtml,
+          },
+        );
+
+        req.session.cart = [];
+
+        message = "Order placed successfully!";
+        return cartView(req, res, message);
+      } else {
+        message = "Your cart is empty.";
+        return cartView(req, res, message);
+      }
+    } catch (err) {
+      console.error(err.stack);
+      return res.status(err.status || 500).render("error", {
+        title: "Error",
+        status: err.status || 500,
+        message: err.message || "Unable to process order.",
+        error: err,
+      });
+    }
+  } else {
+    return res.status(401).render("error", {
+      title: "Error",
+      status: 401,
+      message: "You must be logged in.",
+      error: {},
+    });
+  }
 });
 
 module.exports = router;

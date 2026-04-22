@@ -12,7 +12,7 @@
             <p><%= meal.description %></p>
             <div class="card-actions justify-end">
                 <% if(role === "customer") { %>
-                    <a href="/cart" class="btn btn-primary">Buy Now</a>
+                    <a href="/cart/<%= meal._id %>" class="btn btn-primary">Buy Now</a>
                 <% } else if(role === "dataClerk") { %>
                     <a href="/mealkits/edit/<%= meal._id %>" class="btn btn-primary">Edit</a>
                     <a href="/mealkits/delete/<%= meal._id %>" class="btn btn-error">Delete</a>
