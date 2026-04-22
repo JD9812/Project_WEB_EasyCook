@@ -4,6 +4,7 @@ const express = require("express");
 const expressLayouts = require("express-ejs-layouts");
 const mongoose = require("mongoose");
 const session = require("express-session");
+const fileUpload = require("express-fileupload");
 
 //dotenv
 const dotenv = require("dotenv");
@@ -14,6 +15,8 @@ const app = express();
 
 //body parser
 app.use(express.urlencoded({ extended: true }));
+
+app.use(fileUpload());
 
 //set up static folder
 app.use(express.static(path.join(__dirname, "public")));

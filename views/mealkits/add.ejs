@@ -1,0 +1,85 @@
+<div class="flex justify-center">
+
+    <form method="post" action="/mealkits/add" enctype="multipart/form-data" novalidate class="fieldset bg-base-200 border-base-300 rounded-box border p-4 w-full max-w-xs md:max-w-md xl:max-w-xl">
+
+        <legend class="fieldset-legend">Add Meal Kit</legend>
+
+        <label for="title" class="label">Title*</label>
+        <% if (validationMessages.title) { %>
+            <span class="text-error" style="color: red;">
+                <%= validationMessages.title %>
+            </span>
+            <% } %>
+        <input type="text" id="title" name="title" value="<%= values.title %>" class="input validator w-full max-w-xs md:max-w-md xl:max-w-xl" placeholder="Title"/>
+
+        <label for="includes" class="label">Includes*</label>
+        <% if (validationMessages.includes ) { %>
+            <span class="text-error" style="color: red;">
+                <%= validationMessages.includes %>
+            </span>
+            <% } %>
+        <input type="text" id="includes" name="includes" value="<%= values.includes %>" class="input validator w-full max-w-xs md:max-w-md xl:max-w-xl" placeholder="Includes" />
+
+        <label for="description" class="label">Description*</label>
+        <% if (validationMessages.description) { %>
+            <span class="text-error" style="color: red;">
+                <%= validationMessages.description %>
+            </span>
+            <% } %>
+        <textarea id="description" name="description" class="input validator w-full max-w-xs md:max-w-md xl:max-w-xl" placeholder="Description"><%= values.description %></textarea>
+
+        <label for="category" class="label">Category*</label>
+        <% if (validationMessages.category) { %>
+            <span class="text-error" style="color: red;">
+                <%= validationMessages.category %>
+            </span>
+            <% } %>
+        <input type="text" id="category" name="category" value="<%= values.category %>" class="input validator w-full max-w-xs md:max-w-md xl:max-w-xl" placeholder="Category" />
+
+        <label for="price" class="label">Price*</label>
+        <% if (validationMessages.price) { %>
+            <span class="text-error" style="color: red;">
+                <%= validationMessages.price %>
+            </span>
+            <% } %>
+        <input type="number" id="price" name="price" value="<%= values.price %>" class="input validator w-full max-w-xs md:max-w-md xl:max-w-xl" placeholder="Price" />
+
+        <label for="cookingTime" class="label">Cooking Time*</label>
+        <% if (validationMessages.cookingTime) { %>
+            <span class="text-error" style="color: red;">
+                <%= validationMessages.cookingTime %>
+            </span>
+            <% } %>
+        <input type="number" id="cookingTime" name="cookingTime" value="<%= values.cookingTime %>" class="input validator w-full max-w-xs md:max-w-md xl:max-w-xl" placeholder="Cooking Time" />
+
+        <label for="servings" class="label">Servings*</label>
+        <% if (validationMessages.servings) { %>
+            <span class="text-error" style="color: red;">
+                <%= validationMessages.servings %>
+            </span>
+            <% } %>
+        <input type="number" id="servings" name="servings" value="<%= values.servings %>" class="input validator w-full max-w-xs md:max-w-md xl:max-w-xl" placeholder="Servings" />
+
+        <% //file %>
+        <label for="imageUrl" class="label">Image*</label>
+        <% if (validationMessages.imageUrl) { %>
+            <span class="text-error" style="color: red;">
+                <%= validationMessages.imageUrl %>
+            </span>
+            <% } %>
+        <input type="file" id="imageUrl" name="imageUrl" class="input validator w-full max-w-xs md:max-w-md xl:max-w-xl" placeholder="Image" />
+
+        <div class="flex gap-2">
+
+            <label class="label cursor-pointer">
+            <span class="label-text text-m">Featured</span>
+            <input type="checkbox" name="featured" class="checkbox" />
+            </label>
+
+        </div>
+
+
+        <button class="btn btn-neutral mt-4">Save Meal Kit</button>
+    </form>
+
+</div>

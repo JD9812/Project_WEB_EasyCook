@@ -8,7 +8,7 @@ var mealkits = [
         cookingTime: 25,
         servings: 2,
         imageUrl: "/images/Sautéed_Ground_Pork_over_Jasmine_Rice.png",
-        featuredMealKit: true
+        featured: true
       },
       {
         title: "Roasted Chicken with Garlic Potatoes",
@@ -19,7 +19,7 @@ var mealkits = [
         cookingTime: 35,
         servings: 2,
         imageUrl: "/images/Roasted_Chicken_with_Garlic_Potatoes.png",
-        featuredMealKit: false
+        featured: false
       },
       {
         title: "Beef Meatballs in Tomato Sauce",
@@ -30,7 +30,7 @@ var mealkits = [
         cookingTime: 30,
         servings: 2,
         imageUrl: "/images/Beef_Meatballs_in_Tomato_Sauce.png",
-        featuredMealKit: false
+        featured: false
       },
       {
         title: "Pan-Seared Salmon with Dill Sauce",
@@ -41,7 +41,7 @@ var mealkits = [
         cookingTime: 30,
         servings: 2,
         imageUrl: "/images/Pan-Seared_Salmon_with_Dill_Sauce.png",
-        featuredMealKit: true
+        featured: true
       },
 
       {
@@ -53,7 +53,7 @@ var mealkits = [
         cookingTime: 25,
         servings: 2,
         imageUrl: "/images/Chickpea_&_Spinach_Coconut_Curry.png",
-        featuredMealKit: true
+        featured: true
       },
       {
         title: "Roasted Vegetable Quinoa Bowl",
@@ -64,7 +64,7 @@ var mealkits = [
         cookingTime: 25,
         servings: 2,
         imageUrl: "/images/Roasted_Vegetable_Quinoa_Bow.png",
-        featuredMealKit: false
+        featured: false
       },
       {
         title: "Vegan Mushroom Stroganoff",
@@ -75,7 +75,7 @@ var mealkits = [
         cookingTime: 30,
         servings: 2,
         imageUrl: "/images/Vegan_Mushroom_Stroganoff.png",
-        featuredMealKit: false
+        featured: false
       },
       {
         title: "Sweet Potato & Black Bean Tacos",
@@ -86,27 +86,27 @@ var mealkits = [
         cookingTime: 20,
         servings: 2,
         imageUrl: "/images/Sweet_Potato_&_Black_Bean_Tacos.png",
-        featuredMealKit: true
+        featured: true
       }
       
 ];
 
 module.exports.getAllMealKits = function () {
     return mealkits;
-}
+};
 
 module.exports.getFeaturedMealKits = function (meals) {
 
-    let featured = [];
+    let featuredMeals = [];
 
     meals.forEach(meal => {
-        if (meal.featuredMealKit) {
-            featured.push(meal);
+        if (meal.featured) {
+            featuredMeals.push(meal);
         }
     });
 
-    return featured;
-}
+    return featuredMeals;
+};
 
 module.exports.getMealKitsByCategory = function (mealKits) {
 
@@ -127,4 +127,4 @@ module.exports.getMealKitsByCategory = function (mealKits) {
     });
 
     return grouped;
-}
+};

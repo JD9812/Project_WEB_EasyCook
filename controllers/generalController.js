@@ -1,19 +1,30 @@
 const mealUtil = require("../modules/mealkit-util.js");
+const mealKitModel = require("../modules/mealKitModel");
 const userModel = require("../modules/userModel.js");
 const bcrypt = require("bcryptjs");
 
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-router.get('/', (req, res) => {
-    const meals = mealUtil.getAllMealKits();
-    const featuredMeals = mealUtil.getFeaturedMealKits(meals);
+router.get('/', async (req, res) => {
 
-    res.render("general/home", {
-        title: "Home",
-        featuredMeals
-    });
-    
+    try {
+        const dbMealKits = await mealKitModel.find();
+        const mealKits = dbMealKits.map(mealKit => mealKit.toObject());
+        const featuredMeals = mealUtil.getFeaturedMealKits(mealKits);
+        res.render("general/home", {
+            title: "Home",
+            featuredMeals
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).render("error", {
+            title: "Error",
+            status: 500,
+            message: "Internal Server Error",
+            error: null
+        });
+    };
 });
 
 router.get('/log-in', (req, res) => {

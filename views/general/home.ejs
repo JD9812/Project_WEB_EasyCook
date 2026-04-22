@@ -10,7 +10,9 @@ style="background-image: url(/images/Hero_image.png);">
             <p class="py-6">
                 Nutritious meals crafted to taste good and make you feel even better.
             </p>
-            <a href="/sign-up" class="btn btn-primary">Get Started</a>
+            <% if (!user) { %>
+                <a href="/sign-up" class="btn btn-primary">Get Started</a>
+            <% } %>
         </div>
     </div>
 </div>

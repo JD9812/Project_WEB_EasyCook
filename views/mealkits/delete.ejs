@@ -1,0 +1,21 @@
+
+<div class="p-4 flex justify-center">
+    
+    <div class="card max-w-xs bg-base-100 shadow-sm">
+    
+        <figure class="aspect-square">
+            <img src="<%= mealKit.imageUrl %>" class="object-cover w-full h-full object-top" alt="MealKit Image" />
+        </figure>
+    
+        <div class="card-body">
+            <h2 class="card-title"><%= mealKit.title %></h2>
+            <p><%= mealKit.description %></p>
+            <div class="card-actions justify-end">
+                <form method="post" action="/mealkits/delete/<%= mealKit._id %>" >
+                    <button class="btn btn-error" type="submit">Delete</button>
+                </form>
+            </div>
+        </div>
+    
+        </div>
+</div>

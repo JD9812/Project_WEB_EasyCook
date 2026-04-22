@@ -4,7 +4,14 @@
         <span>Welcome <%= user.firstName %> <%= user.lastName %>, ready to work!</span>
     </div>
 
-    <div class="flex justify-center gap-4 flex-wrap">
+    <div class="flex gap-4 flex-wrap ml-4">
         <a href="/load-data/mealkits" class="btn btn-primary">Load Meal Kits</a>
+        <a href="/mealkits/add" class="btn btn-primary">Add</a>
     </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+        <% mealKits.forEach(meal=> { %>
+            <%- include("../partials/mealkit", { meal: meal }) %>
+            <% }) %>
+        </div>
 </div>
