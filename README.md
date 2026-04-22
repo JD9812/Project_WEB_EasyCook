@@ -10,6 +10,8 @@ Is a full-stack web application built with Node.js, Express and MongoDB that all
   - Restricted acces to routes
   - Email confirmation
   - Error handling
+  - Shooping cart
+  - Meal management
 
 #Tools
   - Node.js
@@ -50,8 +52,6 @@ Is a full-stack web application built with Node.js, Express and MongoDB that all
   4. Open http://localhost:8080
 
 #Future Improvements
-  - Add shoppin cart functionality
-  - Implement meal management functionality
   - Improve UI/UX and responsiveness
 
 #Author
