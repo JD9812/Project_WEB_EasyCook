@@ -51,6 +51,9 @@ Is a full-stack web application built with Node.js, Express and MongoDB that all
   3. node server.js
   4. Open http://localhost:8080
 
+Or visit:
+  https://web-project-easy-cook.vercel.app/
+
 #Future Improvements
   - Improve UI/UX and responsiveness
 
