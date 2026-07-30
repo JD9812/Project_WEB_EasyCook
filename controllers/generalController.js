@@ -140,7 +140,7 @@ router.get('/sign-up', (req, res) => {
 });
 
 router.post('/sign-up', async (req, res) => {
-    console.log(req.body);
+    //console.log(req.body);
 
     const { firstName, lastName, email, password } = req.body;
 
